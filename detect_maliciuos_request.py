@@ -2,7 +2,6 @@ import sys
 import os.path
 import csv
 
-
 urlpercentage = 0.05
 
 weblogfileName = None
@@ -22,17 +21,16 @@ def analyze_weblog(filename):
     with open(filename, mode='r') as csv_file:                   
         csv_reader = csv.reader(csv_file, delimiter=' ')
         for row in csv_reader:
-     
-           
+                
             if (row[0][0] != '#'):        
                                                                     
                ipaddress = row[apachelogsfields.index('ip')]           
                request = row[apachelogsfields.index('request')]     
                status = row[apachelogsfields.index('status')]      
                user_agent = row[apachelogsfields.index('user_agent')]
-    #           print('ipaddress: %s request: %s status: %s user_agent: %s' % (ipaddress, request, status, user_agent))
+   
                url = (request.partition(' ')[2]).partition(' ')[0]  # extract URL from request field
-    #           print ('url %s' % url)
+  
                if (status >= '200' and status <= '299'):           
                
                    if (url not in urls):                       
@@ -54,13 +52,7 @@ def analyze_weblog(filename):
                        temp = uniqueipcount[urls.index(url)] + 1               
                        uniqueipcount[urls.index(url)] = temp                       
                
-           
-#        print(urls)
-#        print('uniqueurlcount: %s' % uniqueurlcount)
-#        print(uniqueuseragentscount)
-#        print(uniqueipcount)
-#        print('amount of useragentlist: %s' %  len(uniqueuseragentscount))
-#        print('amount in the iplist: %s' % len(uniqueipcount))
+  
         numberofurltodisplay = urlpercentage * uniqueurlcount     
         intnumberofurltodisplay = int(numberofurltodisplay)
         if (numberofurltodisplay > intnumberofurltodisplay):     
